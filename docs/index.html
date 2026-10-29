@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TDMU Notes API - Bài 1: Đặc tính điện toán đám mây NIST</title>
+  <style>
+    :root { --fg: #1f2933; --muted: #52606d; --line: #d9e2ec; --accent: #0b6bcb; --bg: #ffffff; --soft: #f5f7fa; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--fg); background: var(--bg); line-height: 1.6; }
+    main { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+    h1 { font-size: 1.6rem; line-height: 1.3; margin: 0 0 4px; }
+    h2 { font-size: 1.2rem; margin-top: 32px; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+    .sub { color: var(--muted); margin-top: 0; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: var(--soft); }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .stat { display: inline-block; background: var(--soft); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin: 4px 0; }
+    .stat b { font-size: 1.4rem; color: var(--accent); }
+    code { background: var(--soft); padding: 1px 5px; border-radius: 4px; font-size: 0.9em; word-break: break-all; }
+    a { color: var(--accent); }
+    .note { color: var(--muted); font-size: 0.92rem; }
+    footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>TDMU Notes API - Bài 1: Đặc tính điện toán đám mây NIST</h1>
+  <p class="sub">Thực hành Điện toán đám mây (LING270) · Sinh viên: Lưu Lý Công</p>
+
+  <h2>5 đặc tính thiết yếu theo NIST</h2>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Đặc tính</th><th>Định nghĩa ngắn</th><th>Bằng chứng từ bài lab</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tự phục vụ theo nhu cầu</td>
+        <td>Người dùng tự xin tài nguyên tính toán khi cần, không phải nhờ ai cấp phát thủ công.</td>
+        <td>Tạo repo <code>tdmu-cloud-lab-LuuLyCong</code> từ template của lớp, rồi tự bấm mở một Codespace trên GitHub. Máy ảo có 2 vCPU và khoảng 8 GB RAM được cấp ngay, không phải gửi yêu cầu cho quản trị viên.</td>
+      </tr>
+      <tr>
+        <td>Truy cập mạng rộng</td>
+        <td>Dịch vụ dùng được qua mạng bằng các thiết bị và giao thức chuẩn (trình duyệt, HTTP).</td>
+        <td>Codespace mở được ngay trong trình duyệt hoặc VS Code. API chạy ở cổng 3000 và được chuyển tiếp ra URL HTTPS dạng <code>*-3000.app.github.dev</code>. Trang này phục vụ qua GitHub Pages.</td>
+      </tr>
+      <tr>
+        <td>Gộp tài nguyên</td>
+        <td>Nhà cung cấp gom tài nguyên vật lý thành một khối, rồi chia động cho nhiều người dùng.</td>
+        <td>API trả về hostname <code>codespaces-280b25</code>, và nhân Linux là <code>6.8.0-1064-azure</code>. Codespace chạy trên hạ tầng Azure dùng chung, và người dùng không biết máy chủ vật lý nằm ở đâu.</td>
+      </tr>
+      <tr>
+        <td>Co giãn nhanh</td>
+        <td>Tài nguyên tăng hoặc giảm nhanh theo nhu cầu, trông như vô hạn với người dùng.</td>
+        <td>Codespace được tạo và dừng theo nhu cầu. Có thể đổi loại máy (số core) hoặc xóa đi tạo lại mà không phải mua phần cứng. Cài thêm Node 22 và gói <code>express</code> chỉ mất vài giây.</td>
+      </tr>
+      <tr>
+        <td>Đo lường được</td>
+        <td>Mức sử dụng tài nguyên được đo, theo dõi và tính phí minh bạch.</td>
+        <td>GitHub tính Codespaces theo core-giờ (gói miễn phí là 120 core-giờ/tháng). Endpoint <code>/health</code> trả về <code>uptime_seconds</code>, và thời gian phản hồi của API đã được đo bằng <code>curl</code> (xem mục Số liệu).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Số liệu</h2>
+  <p>Đo 10 lần bằng lệnh <code>curl -s -o /dev/null -w "%{time_total}\n" http://localhost:3000/hello</code>, chạy ngay trong Codespace ngày 29/10/2026.</p>
+  <div class="stat">Thời gian phản hồi trung bình: <b>0.001 s</b> (≈ 1.24 ms)</div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Lần</th><th>time_total (s)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="num">0.001298</td></tr>
+      <tr><td>2</td><td class="num">0.001011</td></tr>
+      <tr><td>3</td><td class="num">0.001049</td></tr>
+      <tr><td>4</td><td class="num">0.001043</td></tr>
+      <tr><td>5</td><td class="num">0.000814</td></tr>
+      <tr><td>6</td><td class="num">0.001629</td></tr>
+      <tr><td>7</td><td class="num">0.002236</td></tr>
+      <tr><td>8</td><td class="num">0.000753</td></tr>
+      <tr><td>9</td><td class="num">0.001811</td></tr>
+      <tr><td>10</td><td class="num">0.000741</td></tr>
+      <tr><th>Trung bình</th><th class="num">0.001</th></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Đây là thời gian đo qua localhost, tức là bên trong máy Codespace, nên không tính độ trễ Internet. Nếu gọi qua URL công khai thì số đo sẽ lớn hơn.</p>
+
+  <h2>API</h2>
+  <p>URL API: <a href="https://alarming-phantasm-5g7496qg9gwp24qgx-3000.app.github.dev">https://alarming-phantasm-5g7496qg9gwp24qgx-3000.app.github.dev</a></p>
+  <ul>
+    <li><code>GET /</code>: lời chào và tên dịch vụ</li>
+    <li><code>GET /health</code>: trạng thái và thời gian server đã chạy (giây)</li>
+    <li><code>GET /hello</code>: lời chào, hostname và thời gian hiện tại</li>
+  </ul>
+  <p class="note">URL này có thể đổi nếu Codespace được tạo lại, và chỉ truy cập được khi Codespace đang chạy, server đã được bật bằng <code>npm start</code>, và cổng 3000 trong tab PORTS đang để chế độ <b>Public</b>.</p>
+
+  <footer>Trang tĩnh phục vụ bởi GitHub Pages từ thư mục <code>/docs</code> của nhánh <code>main</code>.</footer>
+</main>
+</body>
+</html>

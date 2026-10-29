@@ -1,0 +1,12 @@
+{
+  "name": "tdmu-notes-api",
+  "version": "1.0.0",
+  "description": "API Hello Cloud cho Bài 1 - Thực hành Điện toán đám mây (TDMU)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
