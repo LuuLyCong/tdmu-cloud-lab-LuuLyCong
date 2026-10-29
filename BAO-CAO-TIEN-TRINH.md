@@ -144,3 +144,31 @@ fatal: could not read Username for 'https://github.com': No such device or addre
 Theo ràng buộc của bài, em dừng bước push: không tìm token, không tạo token, không đổi remote. Vì commit chưa lên GitHub, lệnh `git show origin/main:docs/index.html` chưa có nội dung mới.
 
 Cách tự push: mở terminal của Codespace trong VS Code/trình duyệt, nơi GitHub tự cấp quyền git cho Codespace, rồi chạy `git push origin main`. Hoặc dùng nút **Sync Changes** trong tab Source Control.
+
+## Xác minh push (2026-10-29 15:41 +07:00, Asia/Saigon)
+
+Mục này thay cho "Trạng thái push" ở trên: commit đã lên GitHub.
+
+- **Hash `origin/main` đã xác minh:** `26f455b`
+- **Trạng thái:** em đã viết lại 2 commit để xóa trailer đồng tác giả, rồi force-push từ VS Code. `origin/main` khớp với `main` cục bộ.
+
+| Commit | Hash cũ | Hash mới |
+|---|---|---|
+| Hoàn thiện Bài 1: API Hello Cloud, trang Pages, báo cáo | `6bdcba0` | `ea53b83` |
+| Cập nhật trạng thái push trong báo cáo tiến trình | `abb6655` | `26f455b` |
+
+Commit `38ef47b thay doi` không bị thay đổi. Nội dung file cũng không đổi: cây file của commit mới trùng hash với commit cũ.
+
+**Kết quả kiểm tra origin:**
+- `git log origin/main -3` cho thấy cả 3 commit đều có tác giả là `Luu Ly Cong`, và message không còn trailer đồng tác giả.
+- `git diff 26f455b origin/main --stat` rỗng.
+
+**Kết quả kiểm tra sản phẩm:**
+- Đủ các file `package.json`, `server.js`, `.gitignore`, `docs/index.html`, `BAO-CAO-BAI1.md`, `BAO-CAO-TIEN-TRINH.md`.
+- Grep tìm placeholder chưa điền không trả về kết quả nào.
+- `git show origin/main:docs/index.html | head -n 5` hiện ra phần đầu `<!DOCTYPE html>`, `<html lang="vi">`, nghĩa là trang Pages đã có trên GitHub.
+
+**Việc còn lại của người nộp:**
+- Bật GitHub Pages: Settings → Pages → Deploy from a branch → `main`, thư mục `/docs`.
+- Chạy `export PATH="$HOME/.local/node22/bin:$PATH" && npm start`, rồi trong tab PORTS đặt cổng 3000 thành Public.
+- Chụp 4 ảnh: Codespace đang chạy, kết quả curl, trang API trên trình duyệt, trang Pages đã bật.
