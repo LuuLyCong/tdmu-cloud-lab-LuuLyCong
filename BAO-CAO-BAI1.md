@@ -3,7 +3,7 @@
 - Môn: Thực hành Điện toán đám mây (LING270)
 - Sinh viên: Lưu Lý Công
 - Repo: https://github.com/LuuLyCong/tdmu-cloud-lab-LuuLyCong
-- API: https://alarming-phantasm-5g7496qg9gwp24qgx-3000.app.github.dev (cần Codespace đang chạy và cổng 3000 để Public)
+- API: https://nightmarish-spooky-skeleton-v6jg54v6564wf66w-3000.app.github.dev (cần Codespace đang chạy và cổng 3000 để Public)
 - Trang Pages: https://luulycong.github.io/tdmu-cloud-lab-LuuLyCong/ (sau khi bật Pages từ `main` `/docs`)
 
 ## 1. Số liệu thời gian phản hồi
@@ -34,7 +34,7 @@ Tổng 10 lần là 0.012385 s, nên trung bình là 0.0012385 s, tức khoảng
 
 | Mục | Giá trị |
 |---|---|
-| Nền tảng | GitHub Codespaces (`alarming-phantasm-5g7496qg9gwp24qgx`), 2 vCPU, ~8 GB RAM |
+| Nền tảng | GitHub Codespaces (`nightmarish-spooky-skeleton-v6jg54v6564wf66w`; số đo lấy từ codespace trước, cấu hình tương đương), 2 vCPU, ~8 GB RAM |
 | Hệ điều hành | Alpine Linux 3.23.7 (musl libc), kernel `6.8.0-1064-azure` |
 | Node.js | v22.23.4 (bản musl), npm 10.9.9 |
 | Express | 4.22.3 |
@@ -58,7 +58,7 @@ curl http://localhost:3000/hello
 Codespaces đáp ứng cả 5 đặc tính:
 - **Tự phục vụ theo nhu cầu:** em tự bấm tạo Codespace và có ngay máy 2 vCPU, ~8 GB RAM, không phải xin ai.
 - **Truy cập mạng rộng:** chỉ cần trình duyệt là code được. API ở cổng 3000 được GitHub chuyển tiếp ra URL `https://...-3000.app.github.dev`.
-- **Gộp tài nguyên:** hostname trả về từ `/hello` là `codespaces-280b25` và kernel là `azure`, tức là máy này nằm trên hạ tầng Azure dùng chung, còn em không biết nó chạy trên máy chủ vật lý nào.
+- **Gộp tài nguyên:** hostname trả về từ `/hello` là `codespaces-0375bf` (codespace hiện tại; số đo ở codespace trước có hostname khác) và kernel là `azure`, tức là máy này nằm trên hạ tầng Azure dùng chung, còn em không biết nó chạy trên máy chủ vật lý nào.
 - **Co giãn nhanh:** có thể dừng, tạo lại hoặc đổi loại máy bất cứ lúc nào. Ngay cả khi phải cài lại Node, em cũng chỉ mất vài giây.
 - **Đo lường được:** GitHub tính theo core-giờ và lưu dung lượng (GB-tháng). Máy 2 core chạy 1 giờ sẽ trừ 2 core-giờ.
 

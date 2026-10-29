@@ -1,6 +1,6 @@
 # Báo cáo tiến trình Bài 1
 
-Ngày thực hiện: 29/10/2026. Codespace: `alarming-phantasm-5g7496qg9gwp24qgx`.
+Ngày thực hiện: 29/10/2026. Codespace hiện tại: `nightmarish-spooky-skeleton-v6jg54v6564wf66w`. Các bước 0–5 bên dưới thực hiện ở codespace trước (đã bỏ).
 
 ## Bước 0: Đối chiếu yêu cầu của lớp
 
@@ -32,7 +32,7 @@ Mục tiêu theo rubric (10 điểm):
 | `docker --version` | `docker: command not found` (Bài 1 không cần) |
 | `git status` | `On branch main`, `nothing to commit, working tree clean` |
 | `git branch --show-current` | `main` |
-| `echo $CODESPACE_NAME` | `alarming-phantasm-5g7496qg9gwp24qgx` |
+| `echo $CODESPACE_NAME` | codespace trước (đã bỏ) |
 | `git remote -v` | `origin https://github.com/LuuLyCong/tdmu-cloud-lab-LuuLyCong` (fetch/push) |
 
 Hệ điều hành của container là **Alpine Linux 3.23.7 (musl libc)**, kernel `6.8.0-1064-azure`, 2 vCPU, ~8 GB RAM. Image này không phải `mcr.microsoft.com/devcontainers/javascript-node:22` như `devcontainer.json` khai báo.
@@ -77,12 +77,12 @@ $ curl -s http://localhost:3000/health
 {"status":"ok","uptime_seconds":2}
 
 $ curl -s http://localhost:3000/hello
-{"message":"Hello Cloud từ TDMU Notes API","hostname":"codespaces-280b25","time":"2026-10-29T08:31:54.110Z"}
+{"message":"Hello Cloud từ TDMU Notes API","hostname":"codespaces-280b25 (codespace trước)","time":"2026-10-29T08:31:54.110Z"}
 ```
 
 Bước này không gặp lỗi, nên không phải sửa lần nào.
 
-Em cũng thử gọi URL công khai `https://alarming-phantasm-5g7496qg9gwp24qgx-3000.app.github.dev/hello` và nhận HTTP `302` (chuyển sang trang đăng nhập GitHub). Nghĩa là cổng 3000 đang ở chế độ Private và cần đặt Public bằng tay.
+Em cũng thử gọi URL công khai `URL công khai của codespace trước, đường dẫn `/hello`,` và nhận HTTP `302` (chuyển sang trang đăng nhập GitHub). Nghĩa là cổng 3000 đang ở chế độ Private và cần đặt Public bằng tay.
 
 ## Bước 4: Đo thời gian phản hồi
 
@@ -172,3 +172,19 @@ Commit `38ef47b thay doi` không bị thay đổi. Nội dung file cũng không 
 - Bật GitHub Pages: Settings → Pages → Deploy from a branch → `main`, thư mục `/docs`.
 - Chạy `export PATH="$HOME/.local/node22/bin:$PATH" && npm start`, rồi trong tab PORTS đặt cổng 3000 thành Public.
 - Chụp 4 ảnh: Codespace đang chạy, kết quả curl, trang API trên trình duyệt, trang Pages đã bật.
+
+## Kiểm tra môi trường (29/10/2026 16:18, Asia/Saigon)
+
+Codespace mới: `nightmarish-spooky-skeleton-v6jg54v6564wf66w`.
+
+| Lệnh | Kết quả |
+|---|---|
+| `node -v` | `v22.23.4` |
+| `java -version` | `25.0.5` (OpenJDK, Microsoft) |
+| `mvn -version` | `3.10.0` |
+| `docker --version` | `29.9.2` |
+| `docker ps` | chạy được, không có container |
+| `curl /health` | HTTP 200 |
+| `curl /hello` | HTTP 200 |
+
+Kết luận: môi trường khớp devcontainer của thầy.
