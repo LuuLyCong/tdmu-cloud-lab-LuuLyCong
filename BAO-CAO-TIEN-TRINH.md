@@ -135,4 +135,12 @@ Xem mục "Trạng thái push" ở dưới.
 
 ## Trạng thái push
 
-Đang thực hiện.
+Commit `Hoàn thiện Bài 1: API Hello Cloud, trang Pages, báo cáo` đã tạo thành công ở máy cục bộ. Lệnh `git push origin main` **bị lỗi xác thực**, nguyên văn (exit 128):
+
+```
+fatal: could not read Username for 'https://github.com': No such device or address
+```
+
+Theo ràng buộc của bài, em dừng bước push: không tìm token, không tạo token, không đổi remote. Vì commit chưa lên GitHub, lệnh `git show origin/main:docs/index.html` chưa có nội dung mới.
+
+Cách tự push: mở terminal của Codespace trong VS Code/trình duyệt, nơi GitHub tự cấp quyền git cho Codespace, rồi chạy `git push origin main`. Hoặc dùng nút **Sync Changes** trong tab Source Control.
